@@ -103,14 +103,17 @@
         </section>
 
         <section class="json-preview">
-            <h2 data-translate="json-preview">Live JSON Preview</h2>
+            <div class="json-header">
+                <h2 data-translate="json-preview">Live JSON Preview</h2>
+                <button id="copyJsonButton" class="copy-button" title="Copy JSON to clipboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                    </svg>
+                </button>
+            </div>
             <pre id="jsonPreview"></pre>
         </section>
 
-        <section class="subtitle-cards">
-            <h2 data-translate="subtitles">Subtitles</h2>
-            <div id="subtitleCards"></div>
-        </section>
     </div>
     <script src="translations.js"></script>
     <script src="script.js"></script>

@@ -312,6 +312,40 @@ button[type="submit"]:hover {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.json-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.copy-button {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.copy-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.copy-button.copied {
+    background-color: #e8f5e9;
+}
+
+.copy-button.copied svg {
+    fill: #4caf50;
+}
+
+.copy-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary-color);
+}
+
 #jsonPreview {
     background-color: #f8f9fa;
     padding: 15px;
@@ -322,17 +356,6 @@ button[type="submit"]:hover {
     font-size: 14px;
     max-height: 300px;
     overflow-y: auto;
-}
-
-.subtitle-cards {
-    margin-top: var(--spacing);
-}
-
-#subtitleCards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--spacing);
-    margin-top: var(--spacing);
 }
 
 #downloadCount {

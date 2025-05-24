@@ -30,6 +30,18 @@ function updateJsonPreview() {
         JSON.stringify(formData, null, 2);
 }
 
+// Add copy to clipboard functionality
+document.getElementById('copyJsonButton').addEventListener('click', () => {
+    const jsonContent = document.getElementById('jsonPreview').textContent;
+    navigator.clipboard.writeText(jsonContent).then(() => {
+        const button = document.getElementById('copyJsonButton');
+        button.classList.add('copied');
+        setTimeout(() => button.classList.remove('copied'), 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+    });
+});
+
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
     // Set up form submission handler
@@ -102,9 +114,6 @@ function handleFormSubmit(event) {
     // Add to subtitles array
     subtitles.unshift(newSubtitle);
 
-    // Update the display
-    updateSubtitleCards();
-
     // Reset the form
     event.target.reset();
     document.getElementById('generatedId').value = '';
@@ -112,80 +121,6 @@ function handleFormSubmit(event) {
     document.getElementById('downloadCount').value = '0';
 }
 
-// Create a single subtitle card
-function createSubtitleCard(subtitle) {
-    const card = document.createElement('div');
-    card.className = 'subtitle-card';
-
-    const uploadDate = new Date(subtitle.uploadDate).toLocaleDateString();
-    const dateAdded = new Date(subtitle.dateAdded).toLocaleDateString();
-
-    card.innerHTML = `
-        <img src="${subtitle.posterUrl}" alt="${subtitle.title}" class="card-poster">
-        <div class="card-content">
-            <h3 class="card-title">${subtitle.title}</h3>
-            <div class="card-meta">
-                <div>${subtitle.category} | ${subtitle.language} | ${subtitle.year} | ${subtitle.fileType}</div>
-                <div>${translations[currentLanguage]['upload-date']}: ${uploadDate}</div>
-            </div>
-            <p class="card-description">${subtitle.description}</p>
-            <div class="download-links">
-                <a href="${subtitle.englishDownloadUrl}" 
-                   class="download-link" 
-                   onclick="incrementDownloads('${subtitle.id}', 'english')">
-                    ${translations[currentLanguage]['download']} (English)
-                </a>
-                <a href="${subtitle.sinhalaDownloadUrl}" 
-                   class="download-link" 
-                   onclick="incrementDownloads('${subtitle.id}', 'sinhala')">
-                    ${translations[currentLanguage]['download']} (Sinhala)
-                </a>
-            </div>
-            <div class="download-count">
-                ${translations[currentLanguage]['downloads']}: ${subtitle.downloadCount}
-            </div>
-            <div class="date-added">
-                ${translations[currentLanguage]['added']}: ${dateAdded}
-            </div>
-        </div>
-    `;
-
-    return card;
-}
-
-// Increment download count
-function incrementDownloads(id, language) {
-    const subtitle = subtitles.find(s => s.id === id);
-    if (subtitle) {
-        subtitle.downloadCount++;
-        updateSubtitleCards();
-    }
-}
-
-// Update the subtitle cards display
-function updateSubtitleCards() {
-    const container = document.getElementById('subtitleCards');
-    container.innerHTML = '';
-
-    if (subtitles.length === 0) {
-        container.innerHTML = `<p class="no-subtitles">${translations[currentLanguage]['no-subtitles']}</p>`;
-        return;
-    }
-
-    subtitles.forEach(subtitle => {
-        const card = createSubtitleCard(subtitle);
-        container.appendChild(card);
-    });
-}
-
-// Increment download count
-function incrementDownloads(id, type) {
-    const subtitle = subtitles.find(s => s.id === id);
-    if (subtitle) {
-        subtitle.downloadCount++;
-        updateSubtitleCards();
-    }
-}
 
 // Function to format date according to current language
 function formatDate(dateString) {
@@ -194,5 +129,40 @@ function formatDate(dateString) {
                                  currentLanguage === 'si' ? 'si-LK' : 'ta-LK');
 }
 
+// Add some sample data (remove this in production)
+function addSampleData() {
+    const sampleSubtitles = [
+        {
+            id: 1,
+            title: "Sample Movie 1",
+            posterUrl: "https://via.placeholder.com/300x450",
+            year: "2023",
+            language: "English",
+            fileType: ".srt",
+            englishLink: "#",
+            sinhalaLink: "#",
+            description: "A sample movie description that showcases the layout and design of our subtitle cards.",
+            uploadDate: new Date().toISOString(),
+            downloadCount: 125
+        },
+        {
+            id: 2,
+            title: "නමුනා චිත්‍රපටය 2",
+            posterUrl: "https://via.placeholder.com/300x450",
+            year: "2023",
+            language: "සිංහල",
+            fileType: ".srt",
+            englishLink: "#",
+            sinhalaLink: "#",
+            description: "සිංහල භාෂාවෙන් නිර්මාණය කරන ලද චිත්‍රපටයක් සඳහා උපසිරැසි.",
+            uploadDate: new Date().toISOString(),
+            downloadCount: 87
+        }
+    ];
 
+    subtitles = sampleSubtitles;
+    updateSubtitleCards();
+}
+
+// Add sample data when the page loads
 addSampleData();
