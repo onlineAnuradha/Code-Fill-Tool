@@ -194,40 +194,5 @@ function formatDate(dateString) {
                                  currentLanguage === 'si' ? 'si-LK' : 'ta-LK');
 }
 
-// Add some sample data (remove this in production)
-function addSampleData() {
-    const sampleSubtitles = [
-        {
-            id: 1,
-            title: "Sample Movie 1",
-            posterUrl: "https://via.placeholder.com/300x450",
-            year: "2023",
-            language: "English",
-            fileType: ".srt",
-            englishLink: "#",
-            sinhalaLink: "#",
-            description: "A sample movie description that showcases the layout and design of our subtitle cards.",
-            uploadDate: new Date().toISOString(),
-            downloadCount: 125
-        },
-        {
-            id: 2,
-            title: "නමුනා චිත්‍රපටය 2",
-            posterUrl: "https://via.placeholder.com/300x450",
-            year: "2023",
-            language: "සිංහල",
-            fileType: ".srt",
-            englishLink: "#",
-            sinhalaLink: "#",
-            description: "සිංහල භාෂාවෙන් නිර්මාණය කරන ලද චිත්‍රපටයක් සඳහා උපසිරැසි.",
-            uploadDate: new Date().toISOString(),
-            downloadCount: 87
-        }
-    ];
 
-    subtitles = sampleSubtitles;
-    updateSubtitleCards();
-}
-
-// Add sample data when the page loads
 addSampleData();
